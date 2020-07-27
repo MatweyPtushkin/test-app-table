@@ -6,6 +6,7 @@ import _ from "lodash";
 import RowView from "../rowView/RowView";
 import Modal from "../modal/Modal";
 import ModeSelector from "../modeSelector/ModeSelector";
+import ReactPaginate from "react-paginate";
 
 class App extends React.Component {
   constructor() {
@@ -28,7 +29,7 @@ class App extends React.Component {
     const sort = this.state.sort === "asc" ? "desc" : "asc";
     const data = _.orderBy(cloneData, sortField, sort);
 
-    this.setState({data, sort, sortField});
+    this.setState({ data, sort, sortField });
   };
 
   onRowSelect = (row) => this.setState({ row });
@@ -52,6 +53,7 @@ class App extends React.Component {
   };
 
   render() {
+    const pageSize = 50;
     if (!this.state.isModeSelected) {
       return (
         <div className="container">
@@ -75,6 +77,27 @@ class App extends React.Component {
             onRowSelect={this.onRowSelect}
           />
         )}
+        {this.state.data.length > pageSize ? (
+          <ReactPaginate
+            previousLabel={"<"}
+            nextLabel={">"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={20}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.pageChangeHandler}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            nextClassName="page-item"
+            previousLinkClassName="page-link"
+            nextLinkClassName="page-link"
+            forcePage={this.state.currentPage}
+          />
+        ) : null}
         {this.state.row ? <RowView person={this.state.row} /> : null}
       </div>
     );

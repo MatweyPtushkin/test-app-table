@@ -1,20 +1,24 @@
 import React from "react";
-import './Modal.css';
+import "./Modal.css";
 
 class Modal extends React.Component {
-constructor() {
-    super()
+  constructor(props) {
+    super(props);
 
     this.state = {
-        modal: "none",
-    }
-}
+      modal: this.props.modal,
+    };
+  }
+
+  closeModal = () => {
+    return this.setState({ modal: "none" });
+  };
 
   render() {
     return (
-      <div className="modal" style={{ display: this.state.modal }}>
+      <div className="modal" style={{ display: this.props.modal }}>
         <div className="modal__inner">
-          <button className="close-btn" onClick={this.toggleModal}>
+          <button className="close-btn" onClick={this.closeModal}>
             X
           </button>
           <form>

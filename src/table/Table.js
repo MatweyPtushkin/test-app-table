@@ -48,20 +48,6 @@ class Table extends React.Component {
     this.setState({ addPhone: e.target.value });
   };
 
-  addData = (e) => {
-    e.preventDefault();
-    let addData = {
-      id: this.state.addId,
-      firstName: this.state.addFirstName,
-      lastName: this.state.addLastName,
-      email: this.state.addEmail,
-      phone: this.state.addPhone,
-    };
-    console.log(this.state.addId);
-    this.state.data.push(addData);
-    this.setState({ modal: "none" });
-  };
-
   render() {
     return (
       <div className="table">
@@ -102,7 +88,10 @@ class Table extends React.Component {
           </thead>
           <tbody>
             {this.props.data.map((elem, index) => (
-              <tr key={elem[index] + elem.phone}>
+              <tr
+                key={elem[index] + elem.phone}
+                onClick={this.props.onRowSelect.bind(null, elem)}
+              >
                 <td key={elem.id}>{elem.id}</td>
                 <td key={elem.firstName}>{elem.firstName}</td>
                 <td key={elem.lastName}>{elem.lastName}</td>
@@ -112,7 +101,6 @@ class Table extends React.Component {
             ))}
           </tbody>
         </table>
-        <button className="nextButton">Next</button>
         <Modal />
       </div>
     );

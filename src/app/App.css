@@ -37,17 +37,3 @@
     transform: rotate(360deg);
   }
 }
-
-.addData,
-.toggleList {
-  background-color: #f8e391;
-  margin-bottom: 25px;
-  width: 300px;
-  font-size: 22px;
-  margin: 5px;
-}
-
-.addData:hover,
-.toggleList:hover {
-  background-color: goldenrod;
-}

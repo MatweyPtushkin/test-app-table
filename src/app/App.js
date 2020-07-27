@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Table from "../table/Table";
 import Loader from "../loader/Loader";
+import _ from "lodash";
 
 class App extends React.Component {
   constructor() {
@@ -11,6 +12,8 @@ class App extends React.Component {
       isLoading: true,
       data: [],
       smallList: true,
+      sort: "asc",
+      sortField: "id",
     };
   }
 
@@ -23,7 +26,11 @@ class App extends React.Component {
       })
       .then((data) => {
         console.log(data);
-        this.setState({ data: data, isLoading: false });
+        this.setState({ 
+          data: data, 
+          isLoading: false,
+          data: _.orderBy(data, this.state.sortField, this.state.sort) 
+        });
       });
   }
 
@@ -56,6 +63,18 @@ class App extends React.Component {
     }
   };
 
+  onSort = (sortField) => {
+    const cloneData = this.state.data.concat();
+    const sortType = this.state.sort === "asc" ? "desc" : "asc";  
+    const orderedData = _.orderBy(cloneData, sortField, sortType);
+
+    this.setState({
+      data: orderedData,
+      sort: sortType,
+      sortField
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -65,7 +84,11 @@ class App extends React.Component {
         <button className="toggleList" onClick={this.toggleList}>
           Toggle list (big or small)
         </button>
-        {this.state.isLoading ? <Loader /> : <Table data={this.state.data} />}
+        {this.state.isLoading ? (
+          <Loader />
+        ) : (
+          <Table data={this.state.data} onSort={this.onSort} sort={this.state.sort} sortField={this.state.sortField}/>
+        )}
       </div>
     );
   }

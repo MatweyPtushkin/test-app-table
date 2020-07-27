@@ -68,11 +68,36 @@ class Table extends React.Component {
         <table>
           <thead>
             <tr>
-              <th>id &#9660;</th>
-              <th>firstName &#9660;</th>
-              <th>lastName &#9660;</th>
-              <th>email &#9660;</th>
-              <th>phone &#9660;</th>
+              <th onClick={this.props.onSort.bind(null, "id")}>
+                id{" "}
+                {this.props.sortField === "id" ? (
+                  <small>{this.props.sort}</small>
+                ) : null}
+              </th>
+              <th onClick={this.props.onSort.bind(null, "firstName")}>
+                firstName{" "}
+                {this.props.sortField === "firstName" ? (
+                  <small>{this.props.sort}</small>
+                ) : null}
+              </th>
+              <th onClick={this.props.onSort.bind(null, "lastName")}>
+                lastName{" "}
+                {this.props.sortField === "lastName" ? (
+                  <small>{this.props.sort}</small>
+                ) : null}
+              </th>
+              <th onClick={this.props.onSort.bind(null, "email")}>
+                email{" "}
+                {this.props.sortField === "email" ? (
+                  <small>{this.props.sort}</small>
+                ) : null}
+              </th>
+              <th onClick={this.props.onSort.bind(null, "phone")}>
+                phone{" "}
+                {this.props.sortField === "phone" ? (
+                  <small>{this.props.sort}</small>
+                ) : null}
+              </th>
             </tr>
           </thead>
           <tbody>
